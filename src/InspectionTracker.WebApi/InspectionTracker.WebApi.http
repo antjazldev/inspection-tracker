@@ -1,0 +1,6 @@
+@InspectionTracker.WebApi_HostAddress = http://localhost:5264
+
+GET {{InspectionTracker.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
