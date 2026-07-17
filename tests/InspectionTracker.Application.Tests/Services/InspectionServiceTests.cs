@@ -57,7 +57,7 @@ public class InspectionServiceTests
         Func<Task> act = () => _sut.CreateAsync(dto, _userId);
 
         // Assert
-        await act.Should().ThrowAsync<ValidationException>()
+        await act.Should().ThrowAsync<BusinessValidationException>()
             .WithMessage("*asset name*");
         VerifyAddCalled(Times.Never());
     }
@@ -72,7 +72,7 @@ public class InspectionServiceTests
         Func<Task> act = () => _sut.CreateAsync(dto, _userId);
 
         // Assert
-        await act.Should().ThrowAsync<ValidationException>()
+        await act.Should().ThrowAsync<BusinessValidationException>()
             .WithMessage("*future*");
         VerifyAddCalled(Times.Never());
     }
@@ -87,7 +87,7 @@ public class InspectionServiceTests
         Func<Task> act = () => _sut.CreateAsync(dto, _userId);
 
         // Assert
-        await act.Should().ThrowAsync<ValidationException>()
+        await act.Should().ThrowAsync<BusinessValidationException>()
             .WithMessage("*notes*");
         VerifyAddCalled(Times.Never());
     }
