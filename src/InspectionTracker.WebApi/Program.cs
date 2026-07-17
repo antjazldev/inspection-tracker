@@ -4,6 +4,7 @@ using InspectionTracker.Application.Services;
 using InspectionTracker.Infrastructure.Auth;
 using InspectionTracker.Infrastructure.Persistence;
 using InspectionTracker.Infrastructure.Repositories;
+using InspectionTracker.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -53,6 +54,7 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod()));
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
