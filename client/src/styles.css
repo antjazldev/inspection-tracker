@@ -1,3 +1,4 @@
+/* ===== Reset & tokens ===== */
 * { box-sizing: border-box; }
 
 :root {
@@ -6,10 +7,17 @@
   --line: #e5e7eb;
   --accent: #2563eb;
   --accent-dark: #1d4ed8;
+  --accent-soft: #eff6ff;
   --danger: #dc2626;
+  --danger-dark: #b91c1c;
+  --danger-soft: #fee2e2;
   --ok: #059669;
+  --ok-soft: #d1fae5;
   --warn: #d97706;
+  --warn-soft: #fef3c7;
   --bg: #f8fafc;
+  --radius: 8px;
+  --radius-lg: 12px;
 }
 
 body {
@@ -19,6 +27,7 @@ body {
   background: var(--bg);
 }
 
+/* ===== Layout ===== */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -28,63 +37,130 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
-.brand { font-weight: 700; text-decoration: none; color: var(--ink); }
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink);
+}
 
-.topbar nav { display: flex; gap: 1rem; align-items: center; }
-.topbar a { color: var(--accent); text-decoration: none; }
+.topbar nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.topbar a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
 .topbar .user { color: var(--muted); }
 
-main { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
+main {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
 
+/* ===== Buttons ===== */
 button {
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Solid (default) — only applies when NOT a link button */
+button:not(.link) {
   background: var(--accent);
   color: white;
-  border: none;
-  border-radius: 8px;
   padding: 0.6rem 1.1rem;
-  font-size: 0.95rem;
-  cursor: pointer;
 }
-button:hover:not(:disabled) { background: var(--accent-dark); }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
-button.link { background: none; color: var(--accent); padding: 0; }
-button.danger { background: var(--danger); }
+button:not(.link):hover:not(:disabled) { background: var(--accent-dark); }
 
+button.danger { background: var(--danger); }
+button.danger:hover:not(:disabled) { background: var(--danger-dark); }
+
+/* Link-style buttons (Edit / Delete / Log out) */
+button.link {
+  background: transparent;
+  color: var(--accent);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+button.link:hover:not(:disabled) {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}
+
+button.link.danger-text { color: var(--danger); }
+button.link.danger-text:hover:not(:disabled) {
+  background: var(--danger-soft);
+  color: var(--danger-dark);
+}
+
+/* ===== Cards & forms ===== */
 .auth-card {
   max-width: 400px;
   margin: 3rem auto;
   background: white;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 2rem;
 }
 .auth-card h1 { margin-top: 0; font-size: 1.4rem; }
 .auth-card .hint { color: var(--muted); font-size: 0.85rem; }
 
-form { display: flex; flex-direction: column; gap: 1rem; }
-label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 input, select, textarea {
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 0.95rem;
   font-family: inherit;
 }
+
 input:focus, select:focus, textarea:focus {
   outline: 2px solid var(--accent);
   border-color: transparent;
 }
 
 .error { color: var(--danger); font-size: 0.9rem; margin: 0; }
+
 .alt { font-size: 0.9rem; color: var(--muted); }
 .alt a { color: var(--accent); }
 
-.list-header { display: flex; justify-content: space-between; align-items: center; }
+/* ===== Inspection list ===== */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .card {
   background: white;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
   margin-bottom: 0.75rem;
   display: flex;
@@ -92,7 +168,10 @@ input:focus, select:focus, textarea:focus {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  transition: box-shadow 0.15s ease;
 }
+.card:hover { box-shadow: 0 2px 8px rgba(26, 26, 46, 0.06); }
+
 .card .meta { color: var(--muted); font-size: 0.85rem; }
 .card .actions { display: flex; gap: 0.5rem; }
 
@@ -102,12 +181,18 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.78rem;
   font-weight: 700;
 }
-.badge.pending { background: #fef3c7; color: var(--warn); }
-.badge.passed { background: #d1fae5; color: var(--ok); }
-.badge.failed { background: #fee2e2; color: var(--danger); }
+.badge.pending { background: var(--warn-soft); color: var(--warn); }
+.badge.passed { background: var(--ok-soft); color: var(--ok); }
+.badge.failed { background: var(--danger-soft); color: var(--danger); }
 
-.notes { flex-basis: 100%; color: var(--muted); font-size: 0.88rem; margin: 0; }
+.notes {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin: 0;
+}
 
+/* ===== Responsive ===== */
 @media (max-width: 600px) {
   .card { flex-direction: column; align-items: flex-start; }
   main { margin: 1rem auto; }
