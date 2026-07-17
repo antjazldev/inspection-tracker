@@ -19,13 +19,14 @@ namespace InspectionTracker.Infrastructure.Repositories
         }
 
         public Task<InspectionRecord?> GetByIdAsync(Guid id, CancellationToken ct = default)
-            => db.Inspections.FirstOrDefaultAsync(i => i.Id == id, ct);
+             => db.Inspections.Include(i => i.CreatedBy).FirstOrDefaultAsync(i => i.Id == id, ct);
 
         public async Task<IReadOnlyList<InspectionRecord>> GetAllAsync(CancellationToken ct = default)
-            => await db.Inspections
-                .AsNoTracking()
-                .OrderByDescending(i => i.InspectionDate)
-                .ToListAsync(ct);
+               => await db.Inspections
+              .Include(i => i.CreatedBy)
+              .AsNoTracking()
+              .OrderByDescending(i => i.InspectionDate)
+              .ToListAsync(ct);
 
         public async Task UpdateAsync(InspectionRecord record, CancellationToken ct = default)
         {
