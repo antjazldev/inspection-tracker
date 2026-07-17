@@ -21,6 +21,16 @@ public static class DbSeeder
         };
         db.Users.Add(demoUser);
 
+        var demoSecondUser = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = "demo2@inspectiontracker.com",
+            DisplayName = "Demo Supervisor",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Demo1234!"),
+            CreatedAt = DateTime.UtcNow
+        };
+        db.Users.Add(demoSecondUser);
+
         db.Inspections.AddRange(
             new InspectionRecord
             {

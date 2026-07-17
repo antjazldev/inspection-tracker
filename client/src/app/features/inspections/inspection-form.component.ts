@@ -8,46 +8,7 @@ import { InspectionRequest, InspectionStatus } from '../../core/models';
   selector: 'app-inspection-form',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
-  template: `
-    <div class="auth-card" style="max-width: 480px;">
-      <h1>{{ id() ? 'Edit inspection' : 'New inspection' }}</h1>
-
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <label>
-          Asset name
-          <input type="text" formControlName="assetName" placeholder="e.g. Chainsaw 042" />
-        </label>
-
-        <label>
-          Status
-          <select formControlName="status">
-            <option [value]="0">Pending</option>
-            <option [value]="1">Passed</option>
-            <option [value]="2">Failed</option>
-          </select>
-        </label>
-
-        <label>
-          Inspection date
-          <input type="datetime-local" formControlName="inspectionDate" />
-        </label>
-
-        <label>
-          Notes {{ isFailed() ? '(required for failed inspections)' : '(optional)' }}
-          <textarea formControlName="notes" rows="3"></textarea>
-        </label>
-
-        @if (error()) {
-          <p class="error">{{ error() }}</p>
-        }
-
-        <button type="submit" [disabled]="form.invalid || loading()">
-          {{ loading() ? 'Saving...' : 'Save' }}
-        </button>
-        <a routerLink="/inspections" class="alt">Cancel</a>
-      </form>
-    </div>
-  `,
+  templateUrl: './inspection-form.component.html',
 })
 export class InspectionFormComponent implements OnInit {
   private fb = inject(FormBuilder);

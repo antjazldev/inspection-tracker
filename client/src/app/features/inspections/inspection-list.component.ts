@@ -9,52 +9,7 @@ import { InspectionResponse, InspectionStatus } from '../../core/models';
   selector: 'app-inspection-list',
   standalone: true,
   imports: [RouterLink, DatePipe],
-  template: `
-    <div class="list-header">
-      <h1>Inspections</h1>
-      @if (auth.isLoggedIn()) {
-        <a routerLink="/inspections/new"><button>+ New inspection</button></a>
-      }
-    </div>
-
-    @if (loading()) {
-      <p>Loading...</p>
-    } @else if (inspections().length === 0) {
-      <p>No inspections yet.</p>
-    } @else {
-      @for (item of inspections(); track item.id) {
-        <div class="card">
-          <div>
-            <strong>{{ item.assetName }}</strong>
-            <div class="meta">
-              {{ item.inspectionDate | date: 'medium' }} · by {{ item.createdByName }}
-            </div>
-          </div>
-
-          <span class="badge" [class]="'badge ' + statusClass(item.status)">
-            {{ statusLabel(item.status) }}
-          </span>
-
-          @if (isOwner(item)) {
-            <div class="actions">
-              <a [routerLink]="['/inspections', item.id, 'edit']">
-                <button class="link">Edit</button>
-              </a>
-              <button class="link danger-text" (click)="remove(item)">Delete</button>
-            </div>
-          }
-
-          @if (item.notes) {
-            <p class="notes">{{ item.notes }}</p>
-          }
-        </div>
-      }
-    }
-
-    @if (error()) {
-      <p class="error">{{ error() }}</p>
-    }
-  `
+  templateUrl: './inspection-list.component.html'
 })
 export class InspectionListComponent implements OnInit {
   auth = inject(AuthService);
