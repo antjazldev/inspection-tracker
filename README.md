@@ -69,6 +69,11 @@ If your API starts on a different port, update `client/src/environments/environm
 
 32 tests across the three layers. TDD workflow is visible in the commit history
 
+## AI Exercise
+
+ 📄 The Generative AI exercise (prompt, output review, and corrections) is in
+ [docs/genai-exercise.md](docs/genai-exercise.md).
+
 
 
   
