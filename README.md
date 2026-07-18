@@ -1,7 +1,7 @@
 # InspectionTracker
 
 Full-stack technical exercise: equipment inspection tracking for field crews.
-Built with .NET 8, ASP.NET Core Web API, EF Core (SQLite), JWT auth, and Angular 20 —
+Built with .NET 8, ASP.NET Core Web API, EF Core (SQLite), JWT auth, and Angular 20,
 following Clean Architecture and TDD.
 
 ## User story
